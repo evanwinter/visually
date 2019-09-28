@@ -1,0 +1,14 @@
+{
+  "name": "visually",
+  "version": "1.0.0",
+  "description": "Song lyric analysis and data visualization tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Evan Winter",
+  "license": "MIT",
+  "dependencies": {
+    "parcel-bundler": "^1.12.3"
+  }
+}
