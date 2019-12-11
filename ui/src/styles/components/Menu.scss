@@ -1,0 +1,83 @@
+.Menu {
+  // background: $black;
+  width: 100%;
+
+  &--mask {
+    z-index: 9;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    background: rgba($black, 0.75);
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    transition: opacity 250ms ease;
+  }
+
+  &--content {
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &--footer {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    color: $white-50;
+
+    a {
+      color: $white-75;
+    }
+  }
+
+  &--layer {
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 600px;
+    height: 100vh;
+    background: rgba($black, 0.85);
+    border-left: 2px solid $white-50;
+    box-shadow: 0px -2px 10px 2px $black;
+
+    // layer init x pos
+    transform: translateX(calc(100% + 10px));
+    transition: transform 250ms ease;
+
+    &:not(:nth-child(3)) {
+      display: none;
+    }
+  }
+
+  &[data-menu-open='true'] {
+    .Menu--mask {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    // layer final X pos
+    // .Menu--layer:nth-child(1) {
+    // 	transform: translateX(0);
+    // }
+    // .Menu--layer:nth-child(2) {
+    // 	transform: translateX(5px);
+    // }
+
+    .Menu--layer:nth-child(3) {
+      transform: translateX(0px);
+    }
+  }
+}
+
+.MenuToggle {
+  z-index: 10;
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+}

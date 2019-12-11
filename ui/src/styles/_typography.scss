@@ -1,0 +1,13 @@
+$font-family--primary: 'space grotesk', system-ui;
+
+@mixin text-style--label {
+  color: #eee;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.75rem;
+}
+
+@mixin text-style--input {
+  letter-spacing: 1px;
+  font-size: 1rem;
+}

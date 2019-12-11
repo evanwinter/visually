@@ -2,13 +2,31 @@
   "name": "visually",
   "version": "1.0.0",
   "description": "Song lyric analysis and data visualization tool",
+  "repository": "https://github.com/evanwinter/visually",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "rm -rf dist/ && parcel build index.html"
   },
   "author": "Evan Winter",
   "license": "MIT",
   "dependencies": {
-    "parcel-bundler": "^1.12.3"
+    "idb-keyval": "^3.2.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.0",
+    "react-feather": "^2.0.3",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "^0.13.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "eslint-plugin-react": "^7.17.0",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.22.12"
   }
 }

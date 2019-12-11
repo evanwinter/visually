@@ -1,0 +1,40 @@
+.SearchResults {
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+	transition: height 250ms ease, opacity 250ms ease;
+	&[data-show-suggestions='true'] {
+		height: min-content;
+		opacity: 1;
+		.Suggestion {
+			opacity: 1;
+		}
+	}
+
+	display: grid;
+	grid-gap: 0.75rem;
+	grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+	.Suggestion {
+		cursor: pointer;
+		opacity: 0;
+		border: 1px solid $white-50;
+		padding: 1rem;
+		transition: opacity 250ms ease 500ms, background 50ms ease, color 50ms ease, border 50ms ease;
+
+		&:hover,
+		&:focus {
+			background: lighten($black, 5%);
+			color: $white;
+			border-color: $white;
+		}
+
+		&--image {
+			display: block;
+			img {
+				width: 100%;
+				display: block;
+			}
+		}
+	}
+}

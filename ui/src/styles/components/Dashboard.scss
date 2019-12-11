@@ -1,0 +1,7 @@
+.Dashboard {
+	> div {
+		&:not(:first-child) {
+			margin: 1rem 0;
+		}
+	}
+}

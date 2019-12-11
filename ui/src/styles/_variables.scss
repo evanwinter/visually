@@ -1,0 +1,33 @@
+$white: #fefefe;
+$black: #111;
+
+$white-75: rgba($white, 0.75);
+$white-50: rgba($white, 0.5);
+$white-25: rgba($white, 0.25);
+
+$light-black: lighten($black, 5%);
+
+
+$link-color: $white;
+$link-color-hover: $white-75;
+
+$input-color: $white-75;
+$input-background: transparent;
+$input-border: 1px solid $white-50;
+$input-color-disabled: $white-25;
+// $input-background-disabled: ;
+$input-border-disabled: 1px solid $white-25;
+$input-color-focus: $white;
+$input-background-focus: $light-black;
+$input-border-focus: 1px solid $white;
+
+$button-color: $white;
+$button-background: transparent;
+$button-border: 1px solid $white-50;
+$button-color-hover: $white;
+$button-background-hover: $light-black;
+$button-border-hover: 1px solid $white;
+$button-color-disabled: $white-25;
+$button-background-disabled: transparent;
+$button-border-disabled: 1px solid $white-25;
+
