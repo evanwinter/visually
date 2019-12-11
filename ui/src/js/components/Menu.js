@@ -4,36 +4,36 @@ import { useActions } from "../hooks/index"
 import Dashboard from "./Dashboard"
 
 const Menu = () => {
-	const dispatch = useDispatch()
-	const { appActions } = useActions()
+  const dispatch = useDispatch()
+  const { appActions } = useActions()
 
-	const appState = useSelector((state) => state.app)
-	const { menuOpen } = appState
+  const appState = useSelector((state) => state.app)
+  const { menuOpen } = appState
 
-	const handleMaskClick = () => {
-		dispatch(appActions.toggleMenu())
-	}
+  const handleMaskClick = () => {
+    dispatch(appActions.toggleMenu())
+  }
 
-	useEffect(() => {
-		if (menuOpen) document.querySelector(".SearchForm input").focus()
-	}, [menuOpen])
+  useEffect(() => {
+    if (menuOpen) document.querySelector(".SearchForm input").focus()
+  }, [menuOpen])
 
-	return (
-		<div className="Menu" data-menu-open={menuOpen}>
-			<div className="Menu--mask" onClick={handleMaskClick}></div>
-			<div className="Menu--layers">
-				<div className="Menu--layer"></div>
-				<div className="Menu--layer"></div>
-				<div className="Menu--layer">
-					<div className="Menu--content">
-						<div className="Menu--top">
-							<Dashboard />
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	)
+  return (
+    <div className="Menu" data-menu-open={menuOpen}>
+      <div className="Menu--mask" onClick={handleMaskClick}></div>
+      <div className="Menu--layers">
+        <div className="Menu--layer"></div>
+        <div className="Menu--layer"></div>
+        <div className="Menu--layer">
+          <div className="Menu--content">
+            <div className="Menu--top">
+              <Dashboard />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default Menu

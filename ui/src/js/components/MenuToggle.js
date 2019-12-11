@@ -4,24 +4,24 @@ import { useActions } from "../hooks/index"
 import { Menu as MenuIcon, X } from "react-feather"
 
 const MenuToggle = () => {
-	// State
-	const { menuOpen } = useSelector((state) => state.app)
+  // State
+  const { menuOpen } = useSelector((state) => state.app)
 
-	// Actions
-	const dispatch = useDispatch()
-	const { appActions } = useActions()
+  // Actions
+  const dispatch = useDispatch()
+  const { appActions } = useActions()
 
-	// Handlers
-	const handleClick = () => {
-		dispatch(appActions.toggleMenu())
-	}
+  // Handlers
+  const handleClick = () => {
+    dispatch(appActions.toggleMenu())
+  }
 
-	// Output
-	return (
-		<div className="MenuToggle">
-			<button onClick={handleClick}>{menuOpen ? <X /> : <MenuIcon />}</button>
-		</div>
-	)
+  // Output
+  return (
+    <div className="MenuToggle">
+      <button onClick={handleClick}>{menuOpen ? <X /> : <MenuIcon />}</button>
+    </div>
+  )
 }
 
 export default MenuToggle

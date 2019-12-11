@@ -11,7 +11,7 @@ const api = create(process.env.GENIUS_API_TOKEN)
 // Create middleware, adding logger if dev environment
 const middleware = [thunk.withExtraArgument(api)]
 if (process.env.NODE_ENV === "development") {
-	middleware.push(logger)
+  middleware.push(logger)
 }
 
 // Create store
