@@ -8,7 +8,7 @@ const App = () => {
 	return (
 		<div className="App">
 			<Menu />
-			<MenuToggle />
+			<MenuToggle /> 
 			<Main>
 				{
 					// <Chart />
