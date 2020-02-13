@@ -1,46 +1,46 @@
 export default {
-    axis: {
-        domain: {
-            line: {
-                stroke: "white",
-            },
-        },
-        ticks: {
-            line: {
-                stroke: "white",
-            },
-            text: {
-                fill: "#eee",
-                fontSize: 12,
-            },
-        },
-        legend: {
-            text: {
-                fill: "#eee",
-                fontSize: 12,
-                fontWeight: 500,
-            },
-        },
+  axis: {
+    domain: {
+      line: {
+        stroke: "white",
+      },
     },
-    grid: {
-        line: {
-            // strokeDasharray: '1 3',
-            stroke: "#333",
-        },
+    ticks: {
+      line: {
+        stroke: "white",
+      },
+      text: {
+        fill: "#eee",
+        fontSize: 12,
+      },
     },
-    legends: {
-        text: {
-            fontSize: 12,
-            fill: "#eee",
-        },
+    legend: {
+      text: {
+        fill: "#eee",
+        fontSize: 12,
+        fontWeight: 500,
+      },
     },
-    tooltip: {
-        container: {
-            fontSize: 12,
-            background: "#000",
-            color: "#eee",
-        },
+  },
+  grid: {
+    line: {
+      // strokeDasharray: '1 3',
+      stroke: "#333",
     },
+  },
+  legends: {
+    text: {
+      fontSize: 12,
+      fill: "#eee",
+    },
+  },
+  tooltip: {
+    container: {
+      fontSize: 12,
+      background: "#000",
+      color: "#eee",
+    },
+  },
 }
 // labels: {
 //     text: {

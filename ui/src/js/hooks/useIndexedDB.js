@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { get, set } from "idb-keyval"
+import { get } from "idb-keyval"
 
 export const useIndexedDB = (key, initialValue) => {
   const [storedValue, setValue] = useState(initialValue)

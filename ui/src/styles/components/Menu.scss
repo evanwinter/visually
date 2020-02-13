@@ -55,7 +55,7 @@
     }
   }
 
-  &[data-menu-open='true'] {
+  &[data-menu-open="true"] {
     .Menu--mask {
       opacity: 1;
       pointer-events: all;
