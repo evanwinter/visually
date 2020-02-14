@@ -1,5 +1,6 @@
-dist/
-node_modules/
+dist
+node_modules
 .env*
-.cache/
-.parcel-cache/
+.cache
+.parcel-cache
+sample-data

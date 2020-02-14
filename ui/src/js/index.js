@@ -1,4 +1,4 @@
-import "@babel/polyfill"
+// import "@babel/polyfill"
 import React, { StrictMode } from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
@@ -7,10 +7,10 @@ import App from "./components/App"
 import "../styles/index.scss"
 
 ReactDOM.render(
-  <Provider store={store}>
-    <StrictMode>
-      <App />
-    </StrictMode>
-  </Provider>,
-  document.querySelector("#root")
+	<Provider store={store}>
+		<StrictMode>
+			<App />
+		</StrictMode>
+	</Provider>,
+	document.querySelector("#root"),
 )

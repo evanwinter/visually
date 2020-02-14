@@ -1,7 +1,7 @@
 import React from "react"
 import { ResponsiveLine } from "@nivo/line"
 
-// import theme from './Theme'
+import theme from './Theme'
 import { SAMPLE_LINE_DATA } from "./SampleData"
 
 const LineChart = ({ data }) => {
