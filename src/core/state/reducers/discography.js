@@ -3,7 +3,7 @@ const discographyInitialState = {
 	lyrics: [],
 }
 
-export default discography = (state = discographyInitialState, action) => {
+export default (state = discographyInitialState, action) => {
 	switch (action.type) {
 		case "GET_DISCOGRAPHY_BEGIN":
 			return state

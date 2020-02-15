@@ -6,7 +6,7 @@ const Search = () => {
   return (
     <div className="Search">
       <SearchForm />
-      <SearchResults />
+      {/* <SearchResults /> */}
     </div>
   )
 }

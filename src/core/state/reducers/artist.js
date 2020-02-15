@@ -1,6 +1,6 @@
 const artistInitialState = {}
 
-export default artist = (state = artistInitialState, action) => {
+export default (state = artistInitialState, action) => {
 	switch (action.type) {
 		case "SET_ARTIST":
 			return { ...action.artist }

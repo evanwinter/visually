@@ -5,11 +5,11 @@ const COMPLETED = "completed"
 const appInitialState = {
 	step: INITIAL,
 	isLoading: false,
-	searchOpen: true,
+	searchOpen: false,
 	menuOpen: false,
 }
 
-export default app = (state = appInitialState, action) => {
+export default (state = appInitialState, action) => {
 	switch (action.type) {
 		case "GET_APP_DATA_BEGIN":
 			return {

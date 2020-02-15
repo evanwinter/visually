@@ -2,7 +2,7 @@ const chartsInitialState = {
 	data: null, // data formatted for a chart
 }
 
-export default charts = (state = chartsInitialState, action) => {
+export default (state = chartsInitialState, action) => {
 	switch (action.type) {
 		case "GET_CHART_BEGIN":
 			return state

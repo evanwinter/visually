@@ -1,5 +1,7 @@
 const registerPromiseWorker = require("promise-worker/register")
 
+import Utils from "../utils"
+
 const ALBUM_UNKNOWN = "Album Unknown"
 
 const Discography = {
@@ -7,14 +9,6 @@ const Discography = {
 
 	injectSongs(songs) {
 		this.songs = songs
-	},
-
-	getFrequencies(lyrics) {
-		return lyrics.reduce((acc, curr) => {
-			// if word is new, increment count; else start count at 1
-			acc[curr] ? (acc[curr] += 1) : (acc[curr] = 1)
-			return acc
-		}, {})
 	},
 
 	sortSongsByEpoch(songs) {
@@ -46,7 +40,9 @@ const Discography = {
 		// Reduce to object of song lyrics by year, indexed by year
 		const lyricsByYear = data.reduce((acc, curr) => {
 			const [year, songIDs] = curr
-			const lyrics = songIDs.map((songID) => this.songs[songID].lyrics.all).flat()
+			const lyrics = songIDs
+				.map((songID) => this.songs[songID].lyrics.all)
+				.flat()
 			acc[year] = lyrics
 			return acc
 		}, {})
@@ -61,7 +57,7 @@ const Discography = {
 		// Reduce to an object of word frequencies by year, indexed by year
 		const frequenciesByYear = data.reduce((acc, curr) => {
 			const [year, lyrics] = curr
-			const frequencies = this.getFrequencies(lyrics)
+			const frequencies = Utils.getFrequencies(lyrics)
 			acc[year] = frequencies
 			return acc
 		}, {})
@@ -100,7 +96,9 @@ const Discography = {
 		// Reduce to object of song lyrics by year, indexed by year
 		const lyricsByAlbum = data.reduce((acc, curr) => {
 			const [album, songIDs] = curr
-			const lyrics = songIDs.map((songID) => this.songs[songID].lyrics.all).flat()
+			const lyrics = songIDs
+				.map((songID) => this.songs[songID].lyrics.all)
+				.flat()
 			acc[album] = lyrics
 			return acc
 		}, {})
@@ -113,7 +111,7 @@ const Discography = {
 
 		const frequenciesByAlbum = data.reduce((acc, curr) => {
 			const [album, lyrics] = curr
-			const frequencies = this.getFrequencies(lyrics)
+			const frequencies = Utils.getFrequencies(lyrics)
 			acc[album] = frequencies
 			return acc
 		}, {})
@@ -139,7 +137,7 @@ const Discography = {
 			}, {})
 
 			// Get the epoch with the highest frequency
-			mostCommonEpoch = Object.keys(rankedEpochs).reduce((a, b) =>
+			const mostCommonEpoch = Object.keys(rankedEpochs).reduce((a, b) =>
 				rankedEpochs[a] > rankedEpochs[b] ? a : b,
 			)
 
@@ -172,7 +170,7 @@ registerPromiseWorker(function(discography) {
 
 	Discography.injectSongs(songs)
 
-	const allFrequencies = Discography.getFrequencies(lyrics)
+	const allFrequencies = Utils.getFrequencies(lyrics)
 
 	// Get per-year data
 	const songsByYear = Discography.getSongsByYear(songs)

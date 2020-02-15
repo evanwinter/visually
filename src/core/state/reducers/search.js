@@ -4,7 +4,7 @@ const searchInitialState = {
 	isLoading: false,
 }
 
-export default search = (state = searchInitialState, action) => {
+export default (state = searchInitialState, action) => {
 	switch (action.type) {
 		case "HANDLE_QUERY_BEGIN":
 			return {

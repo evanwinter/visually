@@ -8,7 +8,7 @@ const DEFAULT_OPTIONS = {
 }
 
 class API {
-	constructor(apiToken) {
+	constructor(apiToken, options) {
 		this.apiToken = apiToken
 		this.proxy = "https://cors-anywhere.herokuapp.com/"
 
@@ -16,6 +16,8 @@ class API {
 		this.apiURL = this.proxy + "https://api.genius.com"
 
 		this.parser = typeof document !== "undefined" && new DOMParser()
+
+		this.options = options || DEFAULT_OPTIONS
 	}
 
 	requestify(url) {
@@ -47,30 +49,37 @@ class API {
 		const artists = songs.map((song) => song.result.primary_artist)
 
 		// Create an object with each artist ID and its frequency among the results
-		const frequencies = artists.reduce((acc, artist) => {
-			// If artist has a count, increment; if not, start count at 1
-			if (!!acc[artist.id]) {
-				acc[artist.id].count = acc[artist.id].count + 1
-			} else {
-				acc[artist.id] = {
-					artist,
-					count: 1,
-				}
-			}
+		const artistIncrementFn = (value) => ({
+			...value,
+			count: (value.count += 1),
+		})
 
-			return acc
-		}, {})
+		const artistInitialValueFn = (curr) => {
+			return {
+				artist: curr,
+				count: 1,
+			}
+		}
+
+		const frequencies = Utils.getFrequencies(
+			artists,
+			artistInitialValueFn,
+			artistIncrementFn,
+			"id",
+		)
 
 		// Create an array of artist objects found in results, sorted by frequency
-		const artistsByFrequency = Object.entries(frequencies).sort((a, b) => {
-			return b[1].count - a[1].count
-		})
+		const artistsByFrequency = Object.entries(frequencies).sort(
+			(curr, next) => {
+				return next[1].count - curr[1].count
+			},
+		)
 
 		return artistsByFrequency
 	}
 
 	async fetchSongs(artist) {
-		const { perPage, maxNumSongs, sorting } = DEFAULT_OPTIONS
+		const { perPage, maxNumSongs, sorting } = this.options
 
 		// Figure out how many pages to request
 		const numPagesToFetch = Utils.calculateNumPages(perPage, maxNumSongs)
@@ -102,7 +111,7 @@ class API {
 	}
 
 	async fetchLyrics(songsArray, artist) {
-		const { filter } = DEFAULT_OPTIONS
+		const { filter } = this.options
 
 		const lyricsArray = []
 

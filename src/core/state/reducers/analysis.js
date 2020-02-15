@@ -21,7 +21,7 @@ const analysisInitialState = {
 	},
 }
 
-export default analysis = (state = analysisInitialState, action) => {
+export default (state = analysisInitialState, action) => {
 	switch (action.type) {
 		case "GET_ANALYSIS_BEGIN":
 			return state

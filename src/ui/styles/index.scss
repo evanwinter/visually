@@ -61,7 +61,7 @@ button {
 	margin: 1rem 0;
 	transition: background 50ms ease, color 50ms ease, border 50ms ease;
 
-	// &:hover,
+	&:hover,
 	&:focus {
 		background: $button-background-hover;
 		color: $button-color-hover;
@@ -219,4 +219,40 @@ input[type="text"] {
 		opacity: 0;
 		pointer-events: none;
 	}
+}
+
+h1 {
+	font-size: 64px;
+}
+
+p {
+	font-size: 24px;
+}
+
+.Suggestions {
+	position: absolute;
+	background: $light-black;
+	border: $white;
+	z-index: 20;
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		padding: 0.5rem;
+		border: 1px solid $white-50;
+		cursor: pointer;
+
+		&:hover {
+			border: 1px solid $white-75;
+			background: $black;
+		}
+	}
+}
+
+.input-group {
+	position: relative;
 }

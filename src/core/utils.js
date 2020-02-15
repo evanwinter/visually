@@ -273,10 +273,28 @@ export default {
 		})
 	},
 
-	getFrequencies: (lyrics) => {
-		return lyrics.reduce((acc, curr) => {
-			// if word is new, increment count - else start it at 1
-			acc[curr] ? (acc[curr] += 1) : (acc[curr] = 1)
+	getFrequencies: (arr, initialValueFn, incrementFn, keyProperty) => {
+		const basicUsage = arr && !initialValueFn && !incrementFn && !keyProperty
+		const advancedUsage = arr && initialValueFn && incrementFn
+
+		if (!basicUsage && !advancedUsage) {
+			throw new Error("Improper use of Utils.getFrequencies function")
+		}
+
+		return arr.reduce((acc, curr) => {
+			// if custom key property provided, use the key when indexing
+			// (e.g. need access to curr.id)
+			const key = keyProperty ? curr[keyProperty] : curr
+
+			const init = advancedUsage ? initialValueFn(curr) : 1
+			const increment = advancedUsage ? incrementFn : (val) => (val += 1)
+
+			if (acc[key]) {
+				acc[key] = increment(acc[key])
+			} else {
+				acc[key] = init
+			}
+
 			return acc
 		}, {})
 	},
