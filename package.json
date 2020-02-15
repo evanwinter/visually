@@ -9,7 +9,7 @@
 		"start": "parcel index.html",
 		"build": "rm -rf dist/ && parcel build index.html",
 		"format": "prettier --write 'ui/**/*.js' 'core/**/*.js'",
-		"clean": "rm -rf dist/ && rm -rf .cache/ && rm -rf .parcel-cache/ && rm -rf node_modules/"
+		"clean": "rm -rf dist/ && rm -rf .cache/ && rm -rf .parcel-cache/"
 	},
 	"author": "Evan Winter",
 	"license": "MIT",
@@ -18,20 +18,25 @@
 		"idb-keyval": "^3.2.0",
 		"promise-worker": "^2.0.1",
 		"prop-types": "^15.7.2",
-		"react": "^16.10.2",
-		"react-dom": "^16.10.0",
+		"react": "^16.12.0",
+		"react-dom": "^16.12.0",
 		"react-feather": "^2.0.3",
 		"react-redux": "^7.1.1",
 		"redux": "^4.0.4",
 		"redux-logger": "^3.0.6",
-		"redux-thunk": "^2.3.0"
+		"redux-thunk": "^2.3.0",
+		"svg-loaders-react": "^2.2.1"
 	},
 	"devDependencies": {
 		"parcel": "^2.0.0-alpha.3.2",
 		"sass": "^1.22.12"
 	},
 	"alias": {
-		"core": "./core",
-		"ui": "./ui"
+		"core": "./src/core",
+		"ui": "./src/ui",
+		"components": "./src/ui/components",
+		"hooks": "./src/ui/hooks",
+		"styles": "./src/ui/styles",
+		"workers": "./src/core/workers"
 	}
 }
