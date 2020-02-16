@@ -204,8 +204,6 @@ input[type="text"] {
 	top: 0;
 	left: 0;
 
-	padding: 3rem;
-
 	background: $light-black;
 
 	transition: opacity 500ms ease;
@@ -235,6 +233,8 @@ p {
 	border: $white;
 	z-index: 20;
 
+	width: calc(100% - 4rem);
+
 	ul {
 		list-style: none;
 		margin: 0;
@@ -255,4 +255,14 @@ p {
 
 .input-group {
 	position: relative;
+}
+
+.fade-enter {
+	opacity: 0;
+	z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+	opacity: 1;
+	transition: opacity 250ms ease-in;
 }

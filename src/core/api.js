@@ -68,14 +68,16 @@ class API {
 			"id",
 		)
 
-		// Create an array of artist objects found in results, sorted by frequency
-		const artistsByFrequency = Object.entries(frequencies).sort(
-			(curr, next) => {
-				return next[1].count - curr[1].count
-			},
-		)
+		return frequencies
 
-		return artistsByFrequency
+		// // Create an array of artist objects found in results, sorted by frequency
+		// const artistsByFrequency = Object.entries(frequencies).sort(
+		// 	(curr, next) => {
+		// 		return next[1].count - curr[1].count
+		// 	},
+		// )
+
+		// return artistsByFrequency
 	}
 
 	async fetchSongs(artist) {

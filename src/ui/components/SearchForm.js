@@ -27,6 +27,10 @@ const SearchForm = () => {
 		}
 	}
 
+	const handleConfirm = (e) => {
+		// const
+	}
+
 	const debouncedQuery = useDebounce(query, 500)
 
 	useEffect(() => {
@@ -50,33 +54,38 @@ const SearchForm = () => {
 							<ArrowRight width={16} height={15} />
 						</button>
 					</div>
-					<Suggestions suggestions={results} />
+					<div onClick={handleConfirm}>
+						<Suggestions results={results} />
+					</div>
 				</div>
 			</form>
 		</div>
 	)
 }
 
-const Suggestions = ({ suggestions }) => {
+const Suggestions = ({ results }) => {
 	const dispatch = useDispatch()
 	const { appActions } = useActions()
 
-	const handleSubmit = (e) => {
-		const { artist } = e.currentTarget.dataset
-		dispatch(appActions.startApp(JSON.parse(artist)))
+	const artists = results ? Object.values(results) : undefined
+
+	const handleClick = (e) => {
+		const { artistId } = e.currentTarget.dataset
+		const { artist } = results[artistId]
+		console.log(artist)
+		dispatch(appActions.startApp(artist))
 	}
 
 	return (
 		<div className="Suggestions">
 			<ul className="suggestions-list">
-				{suggestions &&
-					suggestions.map((suggestion) => {
-						const { artist } = suggestion[1]
+				{artists &&
+					artists.map(({ artist }) => {
 						return (
 							<li
 								key={artist.id}
-								data-artist={JSON.stringify(artist)}
-								onClick={handleSubmit}>
+								data-artist-id={artist.id}
+								onClick={handleClick}>
 								{artist.name}
 							</li>
 						)

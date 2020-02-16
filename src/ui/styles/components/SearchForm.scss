@@ -3,13 +3,13 @@
 	transition: opacity 500ms ease;
 	overflow-x: hidden;
 
-	&[data-search-open="false"] {
-		opacity: 0;
+	// &[data-search-open="false"] {
+	// 	opacity: 0;
 
-		input {
-			transform: translateX(100%);
-		}
-	}
+	// 	input {
+	// 		transform: translateX(100%);
+	// 	}
+	// }
 
 	label {
 		@include text-style--label;

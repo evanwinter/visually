@@ -273,7 +273,7 @@ export default {
 		})
 	},
 
-	getFrequencies: (arr, initialValueFn, incrementFn, keyProperty) => {
+	getFrequencies(arr, initialValueFn, incrementFn, keyProperty) {
 		const basicUsage = arr && !initialValueFn && !incrementFn && !keyProperty
 		const advancedUsage = arr && initialValueFn && incrementFn
 
