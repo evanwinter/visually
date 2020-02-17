@@ -4,39 +4,104 @@ import { TransitionGroup, CSSTransition } from "react-transition-group"
 import Loader from "../Loader"
 import LineChart from "./LineChart"
 
-function formatForLineChart(options) {
-	const { x, y, data, numWords } = options
-	const { words, frequenciesByGroup } = data
-	const results = words.reduce((acc, word) => {
-		const data = Object.entries(frequenciesByGroup).map((entry) => {
-			const [group, frequencies] = entry
-			const groupFrequency = frequencies[word] || 0
-			const point = {
-				// Group, e.g. "2016" or "<Album Title>"
-				x: group,
-				// Frequency of word within group, e.g. 6x in <Year> or 3x on <Album>
-				y: groupFrequency,
-			}
-			return point
-		})
-
-		const line = {
-			// ID, the word
-			id: word,
-			// Array of points, each representing frequency (Y-value) for that group/year/album (X-value)
-			data: data,
-		}
-
-		return [...acc, line]
-	}, [])
-
-	return results.slice(0, numWords)
-}
-
 const BY_YEAR = "byYear"
 const BY_ALBUM = "byAlbum"
-const FREQ_TOTAL = "frequencyTotal"
-const FREQ_PERCENT = "frequencyPercent"
+const FREQ_DISCRETE = "frequencyDiscrete"
+const FREQ_PERCENT_TOTAL = "frequencyPercentTotal"
+const FREQ_PERCENT_GROUP = "frequencyPercentGroup"
+const FREQ_PERCENT_GROUP_WORDS = "frequencyPercentGroupWords"
+
+function formatForLineChart(options) {
+	const { x, y, data, numWords } = options
+	const { words, frequencies } = data
+
+	const getGroupLines = (words, groupedFrequencies) => {
+		// lines will be an array of line objects, each line representing a group (album or year)
+		const groups = Object.entries(groupedFrequencies)
+		const lines = groups.reduce((acc, entry) => {
+			const [group, groupFrequencies] = entry
+
+			const targetWords = words.slice(0, numWords)
+			const targetFrequencies = Object.entries(groupFrequencies).reduce((acc, curr) => {
+				const [word, frequency] = curr
+				if (targetWords.includes(word)) {
+					acc[word] = frequency
+				}
+				return acc
+			}, {})
+
+			const data = targetWords.map((word) => {
+				const wordFrequencyInGroup = targetFrequencies[word] || 0
+
+				// Divides a number by the sum of all values in an object
+				const getPercent = (count, obj) => {
+					// Get total number of lyrics used
+					const summedValues = Object.values(obj).reduce(
+						(acc, count) => acc + count,
+					)
+					// Get percent of those lyrics that are this iteration's target lyric
+					const decimal = count / summedValues
+					const percent = (decimal * 100).toFixed(2)
+					return percent
+				}
+
+				let yVal = ""
+				if (y === FREQ_PERCENT_GROUP) {
+					yVal = getPercent(wordFrequencyInGroup, groupFrequencies)
+				} else if (y === FREQ_PERCENT_GROUP_WORDS) {
+					yVal = getPercent(wordFrequencyInGroup, targetFrequencies)
+				} else if (y === FREQ_DISCRETE) {
+					yVal = wordFrequencyInGroup
+				}
+
+				const point = {
+					x: word,
+					y: yVal,
+				}
+
+				return point
+			})
+
+			// init line object
+			const line = {
+				id: group,
+				data: data,
+			}
+
+			// Add line object to array of line objects
+			return [...acc, line]
+		}, [])
+
+		return lines
+	}
+
+	// const results = words.reduce((acc, word) => {
+	// 	const data = Object.entries(frequencies).map((entry) => {
+	// 		const [group, frequencies] = entry
+	// 		const groupFrequency = frequencies[word] || 0
+	// 		const point = {
+	// 			// Group, e.g. "2016" or "<Album Title>"
+	// 			x: group,
+	// 			// Frequency of word within group, e.g. 6x in <Year> or 3x on <Album>
+	// 			y: groupFrequency,
+	// 		}
+	// 		return point
+	// 	})
+
+	// 	const line = {
+	// 		// ID, the word
+	// 		id: word,
+	// 		// Array of points, each representing frequency (Y-value) for that group/year/album (X-value)
+	// 		data: data,
+	// 	}
+
+	// 	return [...acc, line]
+	// }, [])
+
+	const lines = getGroupLines(words, frequencies)
+
+	return lines
+}
 
 const getChartData = (options) => {
 	console.log("Getting new chart data...")
@@ -49,7 +114,7 @@ const Chart = () => {
 	const { analysis } = useSelector((state) => state)
 
 	const [xUnits, setXUnits] = useState(BY_YEAR)
-	const [yUnits, setYUnits] = useState(FREQ_TOTAL)
+	const [yUnits, setYUnits] = useState(FREQ_DISCRETE)
 	const [numWords, setNumWords] = useState(10)
 
 	const [words, setWords] = useState([])
@@ -58,28 +123,22 @@ const Chart = () => {
 	const [chartData, setChartData] = useState([])
 
 	useEffect(() => {
-		console.log("Running effect...")
 		const { frequencies } = analysis.all
 		const uniqueWords = Object.keys(frequencies)
 		if (uniqueWords && uniqueWords !== words) {
-			console.log("Setting words...", uniqueWords)
 			setWords(uniqueWords)
 		}
 
 		const frequenciesByGroup = analysis[xUnits].frequencies
 		if (frequenciesByGroup) {
-			console.log("Setting frequencies...", frequenciesByGroup)
 			setFrequencies(frequenciesByGroup)
 		}
 	}, [analysis])
 
 	useEffect(() => {
-		console.log("Updating chart axis units...")
-
 		const group = xUnits
 		const { frequencies } = analysis[group]
 		if (frequencies) {
-			console.log("Setting frequencies...", frequencies)
 			setFrequencies(frequencies)
 		}
 
@@ -96,14 +155,27 @@ const Chart = () => {
 		const output = getChartData(input)
 
 		setChartData(output)
-	}, [xUnits, yUnits])
+	}, [xUnits, yUnits, numWords])
 
 	const handleXUnitsChange = (e) => {
-		setXUnits(event.target.value)
+		setXUnits(e.target.value)
 	}
 
 	const handleYUnitsChange = (e) => {
-		setYUnits(event.target.value)
+		setYUnits(e.target.value)
+	}
+
+	const handleNumWordsChange = (e) => {
+		setNumWords(e.target.value)
+	}
+
+	const showMoreWords = (e) => {
+		setNumWords(numWords + 5)
+	}
+
+	const showFewerWords = (e) => {
+		const fewer = numWords - 5 > 0 ? numWords - 5 : 1
+		setNumWords(fewer)
 	}
 
 	return (
@@ -123,60 +195,26 @@ const Chart = () => {
 					<label>
 						Y Axis Units
 						<select value={yUnits} onChange={handleYUnitsChange}>
-							<option value={FREQ_TOTAL}>
+							<option value={FREQ_DISCRETE}>
 								Total number of times word was used
 							</option>
-							<option value={FREQ_PERCENT}>
-								Percentage-based number of times word was used
+							<option value={FREQ_PERCENT_GROUP}>
+								Percentage-based number of times word was used within this group
+							</option>
+							<option value={FREQ_PERCENT_GROUP_WORDS}>
+								Percentage-based number of times word was used within the words currently displayed in the x-axis
 							</option>
 						</select>
 					</label>
 				</div>
 			</section>
-			{/* {isLoading ? <Loader /> : <LineChart data={data} />} */}
-			{/* <TransitionGroup>
-				<CSSTransition timeout={300} classNames="fade">
-					
-				</CSSTransition>
-			</TransitionGroup> */}
+			<div className="input-group">
+				<label>Number of words</label>
+				<button onClick={showFewerWords}>-</button>
+				<button onClick={showMoreWords}>+</button>
+			</div>
 		</div>
 	)
 }
 
 export default Chart
-
-// class FlavorForm extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {value: 'coconut'};
-
-//     this.handleChange = this.handleChange.bind(this);
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-
-//   handleChange(event) {
-//     this.setState({value: event.target.value});
-//   }
-
-//   handleSubmit(event) {
-//     alert('Your favorite flavor is: ' + this.state.value);
-//     event.preventDefault();
-//   }
-
-//   render() {
-//     return (
-//       <form onSubmit={this.handleSubmit}>
-//         <label>
-//           Pick your favorite flavor:
-//           <select value={this.state.value} onChange={this.handleChange}>
-//             <option value="grapefruit">Grapefruit</option>
-//             <option value="lime">Lime</option>
-//             <option value="coconut">Coconut</option>
-//             <option value="mango">Mango</option>
-//           </select>
-//         </label>
-//         <input type="submit" value="Submit" />
-//       </form>
-//     );
-//   }
-// }
