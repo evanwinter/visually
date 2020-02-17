@@ -12,7 +12,7 @@ const appActions = {
 				discographyActions.getDiscography(artist),
 			)
 			const analysis = await dispatch(analysisActions.getAnalysis(discography))
-			const chart = await dispatch(chartActions.getChart(discography))
+			const chart = await dispatch(chartActions.getChart(analysis))
 			dispatch(this.getAppDataSuccess())
 		}
 	},

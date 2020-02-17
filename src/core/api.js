@@ -1,7 +1,7 @@
 import Utils from "./utils"
 
 const DEFAULT_OPTIONS = {
-	maxNumSongs: 100,
+	maxNumSongs: 20,
 	perPage: 50,
 	sorting: "popularity",
 	filter: true,

@@ -4,10 +4,10 @@ const chartWorker = new Worker("../../workers/chart.worker.js")
 const chartPromiseWorker = new PromiseWorker(chartWorker)
 
 const chartActions = {
-	getChart(discography) {
+	getChart(analysis) {
 		return async (dispatch, getState, api) => {
 			dispatch(this.getChartBegin())
-			const chart = await chartPromiseWorker.postMessage(discography)
+			const chart = await chartPromiseWorker.postMessage(analysis)
 			dispatch(this.getChartSuccess(chart))
 			return chart
 		}
