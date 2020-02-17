@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Song lyric analysis and data visualization tool",
 	"repository": "https://github.com/evanwinter/visually",
-	"main": "index.js",
+	"main": "index.html",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "parcel index.html",
