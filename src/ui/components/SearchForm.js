@@ -36,7 +36,6 @@ const SearchForm = () => {
 	useEffect(() => {
 		if (debouncedQuery) {
 			if (debouncedQuery.length > 3) {
-				console.log("handle query")
 				dispatch(searchActions.handleQuery(debouncedQuery.trim()))
 			}
 		}
@@ -72,7 +71,6 @@ const Suggestions = ({ results }) => {
 	const handleClick = (e) => {
 		const { artistId } = e.currentTarget.dataset
 		const { artist } = results[artistId]
-		console.log(artist)
 		dispatch(appActions.startApp(artist))
 	}
 

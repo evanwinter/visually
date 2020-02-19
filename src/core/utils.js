@@ -1,3 +1,5 @@
+import T from "types"
+
 export default {
 	filterWords: [
 		`a`,
@@ -154,6 +156,89 @@ export default {
 		`yourself`,
 		`yourselves`,
 	],
+
+	getGroupLines: (options) => {
+		const { data, parameters } = options
+		const { groupedFrequencies, sortedFrequencies } = data
+		const { yUnits, xRange } = parameters
+
+		// lines will be an array of line objects, each line representing a group
+		// a group is currently either an album or a year
+		const groupedEntries = Object.entries(groupedFrequencies)
+
+		const lines = groupedEntries.reduce((acc, entry) => {
+			// group name and an object of word frequencies ({ [word]: [frequency], ... })
+			const [groupName, groupFrequencies] = entry
+
+			const [xMin, xMax] = xRange
+
+			const targetWords = sortedFrequencies
+				.slice(xMin, xMax)
+				.map((entry) => entry[0])
+
+			const targetFrequencies = targetWords.reduce((acc, word) => {
+				acc[word] = groupFrequencies[word] || 0
+				return acc
+			}, {})
+
+			// data is an array of points, format { x: xAxisVal, y: yAxisVal }
+			const linePoints = targetWords.map((word) => {
+				const wordFrequencyInGroup = targetFrequencies[word] || 0
+
+				const sumFrequenciesInGroup = Object.values(groupFrequencies).reduce(
+					(acc, curr) => (acc += curr),
+				)
+
+				const sumFrequenciesInGroupVisible = Object.values(
+					targetFrequencies,
+				).reduce((acc, curr) => (acc += curr))
+
+				let yVal = 0
+
+				switch (yUnits) {
+					case T.FREQ_PERCENT_GROUP:
+						yVal = Utils.getPercent(wordFrequencyInGroup, sumFrequenciesInGroup)
+						break
+					case T.FREQ_PERCENT_GROUP_WORDS:
+						yVal = Utils.getPercent(
+							wordFrequencyInGroup,
+							sumFrequenciesInGroupVisible,
+						)
+						break
+					case T.FREQ_DISCRETE:
+						yVal = wordFrequencyInGroup
+					default:
+						yVal = wordFrequencyInGroup
+				}
+
+				return { x: word, y: yVal }
+			})
+
+			// init line object
+			const lineDataObject = {
+				id: groupName,
+				data: linePoints,
+			}
+
+			// Add line object to array of line objects
+			return [...acc, lineDataObject]
+		}, [])
+
+		return lines
+	},
+
+	getPercent: (count, total) => {
+		// Get percent of those lyrics that are this iteration's target lyric
+		const decimal = count / total
+		const percent = Math.round(decimal * 10000) / 100
+		return percent
+	},
+
+	getSortedFrequencies: (frequencies, byHighestValue = true) => {
+		const objectSortFn = (a, b) => (byHighestValue ? b[1] - a[1] : a[1] - b[1])
+		const objectsSortedByValue = Object.entries(frequencies).sort(objectSortFn)
+		return objectsSortedByValue
+	},
 
 	isEmpty(obj) {
 		return Object.entries(obj).length === 0 && obj.constructor === Object

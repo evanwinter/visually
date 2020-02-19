@@ -11,7 +11,7 @@ const App = () => {
 			<Toggles />
 			<Menu />
 			<Main>
-				<Welcome />
+				{/* <Welcome /> */}
 				<Chart />
 			</Main>
 		</div>
