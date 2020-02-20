@@ -1,4 +1,5 @@
 import PromiseWorker from "promise-worker"
+import T from "types"
 
 const chartWorker = new Worker("../../workers/chart.worker.js")
 const chartPromiseWorker = new PromiseWorker(chartWorker)
@@ -14,15 +15,30 @@ const chartActions = {
 	},
 	getChartBegin() {
 		return {
-			type: "GET_CHART_BEGIN",
+			type: T.GET_CHART_BEGIN,
 		}
 	},
 	getChartSuccess(chart) {
 		return {
-			type: "GET_CHART_SUCCESS",
+			type: T.GET_CHART_SUCCESS,
 			chart: chart,
 		}
 	},
+
+	updateParams: (parameters) => ({
+		type: T.UPDATE_CHART_PARAMS,
+		parameters: parameters,
+	}),
+
+	updateData: (data) => ({
+		type: T.UPDATE_CHART_DATA,
+		data: data,
+	}),
+
+	updateResults: (results) => ({
+		type: T.UPDATE_CHART_RESULTS,
+		results: results,
+	}),
 }
 
 export default chartActions

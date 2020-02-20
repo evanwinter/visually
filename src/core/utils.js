@@ -157,16 +157,48 @@ export default {
 		`yourselves`,
 	],
 
-	getGroupLines: (options) => {
-		const { data, parameters } = options
-		const { groupedFrequencies, sortedFrequencies } = data
-		const { yUnits, xRange } = parameters
+	getGroupStr: (str) => str.substr(2, str.length).toLowerCase(),
 
-		// lines will be an array of line objects, each line representing a group
-		// a group is currently either an album or a year
+	increaseRange(range, step, upperBound = 100) {
+		const [min, max] = range
+		const outOfBounds = max + step > upperBound
+		const newMax = outOfBounds ? upperBound : max + step
+		return [min, newMax]
+	},
+
+	decreaseRange(range, step, lowerBound = 0) {
+		const [min, max] = range
+		const outOfBounds = max - step < lowerBound
+		const newMax = outOfBounds ? max : max - step
+		return [min, newMax]
+	},
+
+	shiftRange(range, step, upperBound = 100) {
+		const [min, max] = range
+		const outOfBounds = max + step > upperBound
+		return outOfBounds ? range : range.map((val) => (val += step))
+	},
+
+	unshiftRange(range, step, lowerBound = 0) {
+		const [min, max] = range
+		const outOfBounds = min - step < 0
+		return outOfBounds ? range : range.map((val) => (val -= step))
+	},
+
+	getGroupLines(options) {
+
+		console.log(options)
+
+		const { data, parameters } = options
+		const { yUnits, xRange, groupUnits } = parameters
+
+		const allFrequencies = data.all.frequencies
+		const groupedFrequencies = data[groupUnits].frequencies
+		const sortedFrequencies = this.getSortedFrequencies(allFrequencies)
+
 		const groupedEntries = Object.entries(groupedFrequencies)
 
-		const lines = groupedEntries.reduce((acc, entry) => {
+		const linesArray = groupedEntries.reduce((acc, entry) => {
 			// group name and an object of word frequencies ({ [word]: [frequency], ... })
 			const [groupName, groupFrequencies] = entry
 
@@ -197,10 +229,10 @@ export default {
 
 				switch (yUnits) {
 					case T.FREQ_PERCENT_GROUP:
-						yVal = Utils.getPercent(wordFrequencyInGroup, sumFrequenciesInGroup)
+						yVal = this.getPercent(wordFrequencyInGroup, sumFrequenciesInGroup)
 						break
 					case T.FREQ_PERCENT_GROUP_WORDS:
-						yVal = Utils.getPercent(
+						yVal = this.getPercent(
 							wordFrequencyInGroup,
 							sumFrequenciesInGroupVisible,
 						)
@@ -224,7 +256,7 @@ export default {
 			return [...acc, lineDataObject]
 		}, [])
 
-		return lines
+		return linesArray
 	},
 
 	getPercent: (count, total) => {

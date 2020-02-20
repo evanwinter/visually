@@ -1,3 +1,5 @@
+import T from "types"
+
 const discographyActions = {
 	getDiscography(artist) {
 		return async (dispatch, getState, api) => {
@@ -9,12 +11,12 @@ const discographyActions = {
 	},
 	getDiscographyBegin() {
 		return {
-			type: "GET_DISCOGRAPHY_BEGIN",
+			type: T.GET_DISCOGRAPHY_BEGIN,
 		}
 	},
 	getDiscographySuccess(discography) {
 		return {
-			type: "GET_DISCOGRAPHY_SUCCESS",
+			type: T.GET_DISCOGRAPHY_SUCCESS,
 			discography: discography,
 		}
 	},

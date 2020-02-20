@@ -1,7 +1,7 @@
 import analysisActions from "./analysis"
 import appActions from "./app"
 import artistActions from "./artist"
-import chartActions from "./charts"
+import chartActions from "./chart"
 import discographyActions from "./discography"
 import searchActions from "./search"
 

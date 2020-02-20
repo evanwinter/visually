@@ -1,3 +1,5 @@
+import T from "types"
+
 const discographyInitialState = {
 	songs: {},
 	lyrics: [],
@@ -5,11 +7,11 @@ const discographyInitialState = {
 
 export default (state = discographyInitialState, action) => {
 	switch (action.type) {
-		case "GET_DISCOGRAPHY_BEGIN":
+		case T.GET_DISCOGRAPHY_BEGIN:
 			return state
-		case "GET_DISCOGRAPHY_SUCCESS":
+		case T.GET_DISCOGRAPHY_SUCCESS:
 			return { ...action.discography }
-		case "GET_DISCOGRAPHY_ERROR":
+		case T.GET_DISCOGRAPHY_ERROR:
 			return state
 		default:
 			return state

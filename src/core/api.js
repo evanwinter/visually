@@ -21,9 +21,14 @@ class API {
 	}
 
 	requestify(url) {
+		const headers = new Headers({
+			Accept: "application/json",
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${this.apiToken}`,
+		})
 		return new Request(url, {
 			method: "GET",
-			headers: new Headers({ Authorization: `Bearer ${this.apiToken}` }),
+			headers: headers,
 		})
 	}
 

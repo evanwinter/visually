@@ -1,7 +1,9 @@
+import T from "types"
+
 const artistActions = {
 	setArtist(artist) {
 		return {
-			type: "SET_ARTIST",
+			type: T.SET_ARTIST,
 			artist: artist,
 		}
 	},

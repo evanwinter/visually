@@ -1,7 +1,9 @@
+import T from "types"
+
 import artistActions from "./artist"
 import discographyActions from "./discography"
 import analysisActions from "./analysis"
-import chartActions from "./charts"
+import chartActions from "./chart"
 
 const appActions = {
 	startApp(artist) {
@@ -18,22 +20,22 @@ const appActions = {
 	},
 	getAppDataBegin() {
 		return {
-			type: "GET_APP_DATA_BEGIN",
+			type: T.GET_APP_DATA_BEGIN,
 		}
 	},
 	getAppDataSuccess() {
 		return {
-			type: "GET_APP_DATA_SUCCESS",
+			type: T.GET_APP_DATA_SUCCESS,
 		}
 	},
 	toggleSearch() {
 		return {
-			type: "TOGGLE_SEARCH",
+			type: T.TOGGLE_SEARCH,
 		}
 	},
 	toggleMenu() {
 		return {
-			type: "TOGGLE_MENU",
+			type: T.TOGGLE_MENU,
 		}
 	},
 }

@@ -1,3 +1,5 @@
+import T from "types"
+
 const searchInitialState = {
 	showSuggestions: false,
 	results: null,
@@ -6,30 +8,30 @@ const searchInitialState = {
 
 export default (state = searchInitialState, action) => {
 	switch (action.type) {
-		case "HANDLE_QUERY_BEGIN":
+		case T.HANDLE_QUERY_BEGIN:
 			return {
 				...state,
 				isLoading: true,
 			}
-		case "HANDLE_QUERY_SUCCESS":
+		case T.HANDLE_QUERY_SUCCESS:
 			return {
 				...state,
 				results: action.results,
 				isLoading: false,
 			}
-		case "HANDLE_QUERY_ERROR":
+		case T.HANDLE_QUERY_ERROR:
 			return state
-		case "SHOW_SUGGESTIONS":
+		case T.SHOW_SUGGESTIONS:
 			return {
 				...state,
 				showSuggestions: true,
 			}
-		case "HIDE_SUGGESTIONS":
+		case T.HIDE_SUGGESTIONS:
 			return {
 				...state,
 				showSuggestions: false,
 			}
-		case "CHOOSE_SUGGESTION":
+		case T.CHOOSE_SUGGESTION:
 			return {
 				...state,
 				showSuggestions: false,

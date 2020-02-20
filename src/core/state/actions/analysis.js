@@ -1,5 +1,5 @@
 import PromiseWorker from "promise-worker"
-
+import T from "types"
 import discographyActions from "./discography"
 
 const analysisWorker = new Worker("../../workers/analysis.worker.js")
@@ -19,12 +19,12 @@ const analysisActions = {
 	},
 	getAnalysisBegin() {
 		return {
-			type: "GET_ANALYSIS_BEGIN",
+			type: T.GET_ANALYSIS_BEGIN,
 		}
 	},
 	getAnalysisSuccess(analysis) {
 		return {
-			type: "GET_ANALYSIS_SUCCESS",
+			type: T.GET_ANALYSIS_SUCCESS,
 			analysis: analysis,
 		}
 	},

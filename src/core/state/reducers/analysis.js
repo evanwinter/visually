@@ -1,3 +1,5 @@
+import T from "types"
+
 const analysisInitialState = {
 	all: {
 		frequencies: {},
@@ -23,11 +25,11 @@ const analysisInitialState = {
 
 export default (state = analysisInitialState, action) => {
 	switch (action.type) {
-		case "GET_ANALYSIS_BEGIN":
+		case T.GET_ANALYSIS_BEGIN:
 			return state
-		case "GET_ANALYSIS_SUCCESS":
+		case T.GET_ANALYSIS_SUCCESS:
 			return { ...action.analysis }
-		case "GET_ANALYSIS_ERROR":
+		case T.GET_ANALYSIS_ERROR:
 			return state
 		default:
 			return state

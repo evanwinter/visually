@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useActions } from "hooks/index"
+import { useActions } from "hooks"
 import Dashboard from "./Dashboard"
 
 const Menu = () => {
