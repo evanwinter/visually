@@ -8,8 +8,8 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "parcel src/index.html",
 		"build": "npm run prebuild ; parcel build src/index.html",
-		"format": "prettier --write 'ui/**/*.js' 'core/**/*.js'",
-		"prebuild": "rm analysis.worker.* ; rm chart.worker.* ; rm index.html ; rm ./ui.* ; true",
+		"format": "prettier --write 'src/**/*.js'",
+		"prebuild": "npm run clean",
 		"clean": "rm -rf dist/ && rm -rf .cache/ && rm -rf .parcel-cache/"
 	},
 	"author": "Evan Winter",
@@ -29,7 +29,9 @@
 		"svg-loaders-react": "^2.2.1"
 	},
 	"devDependencies": {
-		"parcel": "^2.0.0-alpha.3.2",
+		"@babel/core": "^7.8.4",
+		"@babel/plugin-transform-runtime": "^7.8.3",
+		"parcel-bundler": "^1.12.4",
 		"sass": "^1.25.0"
 	},
 	"alias": {
@@ -40,6 +42,5 @@
 		"styles": "./src/ui/styles",
 		"workers": "./src/core/workers",
 		"types": "./src/core/types"
-	},
-	"default": "dist/"
+	}
 }
