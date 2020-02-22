@@ -24,14 +24,12 @@ const Chart = () => {
 		// When data source updates, update local chart data store
 		if (needsDataUpdate) {
 			const data = analysis
-			console.log("Updating data...", data)
 			dispatch(chartActions.updateData(data))
 		}
 	}, [analysis])
 
 	// Generate a new chart when parameters or data change
 	useEffect(() => {
-		console.log(chart)
 		const results = Utils.getGroupLines(chart)
 		dispatch(chartActions.updateResults(results))
 	}, [chart.parameters, chart.data, chart.filters])

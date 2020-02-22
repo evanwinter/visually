@@ -33,8 +33,6 @@ export default {
 		const { data, parameters } = options
 		const { yUnits, xRange, groupUnits } = parameters
 
-		console.log(data)
-
 		const allFrequencies = data.all.frequencies
 		const groupedFrequencies = data[groupUnits].frequencies
 		const sortedFrequencies = this.getSortedFrequencies(allFrequencies)
