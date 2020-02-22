@@ -18,7 +18,7 @@ const App = () => {
 				<Toggles />
 				<Profile />
 				<Chart />
-				{/* <Welcome /> */}
+				<Welcome />
 			</Main>
 		</div>
 	)
