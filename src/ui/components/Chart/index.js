@@ -2,16 +2,17 @@ import React, { useState, useEffect, useReducer } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import Utils from "core/utils"
 import T from "types"
-import { useActions } from "hooks"
+import { useActions, useIndexedDB } from "hooks"
 import LineChart from "./LineChart"
 import { ShiftXRange, UpdateXRange } from "../XAxis"
 import { UpdateYAxis } from "../YAxis"
+import { get, set } from "idb-keyval"
 
 const Chart = () => {
 	// Initialize state management
 	// Listen to discography data from redux store
-	const { analysis, chart } = useSelector((state) => state)
-
+	const { artist, analysis, chart } = useSelector((state) => state)
+	const { id } = useSelector((state) => state.artist)
 	const { step } = useSelector((state) => state.app)
 
 	const dispatch = useDispatch()
@@ -24,6 +25,7 @@ const Chart = () => {
 		// When data source updates, update local chart data store
 		if (needsDataUpdate) {
 			const data = analysis
+
 			dispatch(chartActions.updateData(data))
 		}
 	}, [analysis])
@@ -42,9 +44,10 @@ const Chart = () => {
 		<div className="Chart">
 			<div className="Chart--top-toolbar"></div>
 			<div className="Chart--main">
-				<LineChart data={chart.results} />
+				<LineChart options={chart.options} data={chart.results} />
 			</div>
 			<div className="Chart--bottom-toolbar">
+				<h3>X Axis</h3>
 				<ShiftXRange />
 				<UpdateXRange />
 			</div>

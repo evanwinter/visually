@@ -29,7 +29,7 @@ const Toolbar = () => {
 	return (
 		<div className="Toolbar" data-open={open}>
 			<p>
-				Toolbar{" "}
+				Chart Options{" "}
 				<span className="Toolbar--toggle-icon" onClick={handleToggle}>
 					<ChevronDown width={20} height={20} />
 				</span>
@@ -39,7 +39,7 @@ const Toolbar = () => {
 					<section>
 						<div>
 							<label>
-								A line represents...
+								Each line represents...
 								<select
 									value={chart.parameters.groupUnits}
 									onChange={handleGroupUnitsChange}>

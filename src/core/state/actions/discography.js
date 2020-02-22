@@ -1,9 +1,11 @@
 import T from "types"
+import appActions from "./app"
 
 const discographyActions = {
 	getDiscography(artist) {
 		return async (dispatch, getState, api) => {
 			dispatch(this.getDiscographyBegin())
+			dispatch(appActions.setStep(T.STEP_FETCHING_DISCOGRAPHY))
 			const discography = await api.fetchDiscography(artist)
 			dispatch(this.getDiscographySuccess(discography))
 			return discography

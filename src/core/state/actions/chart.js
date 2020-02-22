@@ -1,5 +1,6 @@
 import PromiseWorker from "promise-worker"
 import T from "types"
+import appActions from "./app"
 
 const chartWorker = new Worker("../../workers/chart.worker.js")
 const chartPromiseWorker = new PromiseWorker(chartWorker)
@@ -8,6 +9,7 @@ const chartActions = {
 	getChart(analysis) {
 		return async (dispatch, getState, api) => {
 			dispatch(this.getChartBegin())
+			dispatch(appActions.setStep(T.STEP_GETTING_CHART))
 			const chart = await chartPromiseWorker.postMessage(analysis)
 			dispatch(this.getChartSuccess(chart))
 			return chart

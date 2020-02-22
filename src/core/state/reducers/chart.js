@@ -27,6 +27,12 @@ const chartInitialState = {
 		},
 	},
 	results: [],
+	options: {
+		xMin: "auto",
+		xMax: "auto",
+		yMin: "auto",
+		yMax: "auto",
+	},
 }
 
 export default (state = chartInitialState, action) => {

@@ -36,6 +36,10 @@ const SearchForm = () => {
 	const debouncedQuery = useDebounce(query, 500)
 
 	useEffect(() => {
+		if (debouncedQuery.length === 0) {
+			dispatch(searchActions.hideSuggestions())
+		}
+
 		if (debouncedQuery) {
 			if (debouncedQuery.length > 3) {
 				dispatch(searchActions.handleQuery(debouncedQuery.trim()))

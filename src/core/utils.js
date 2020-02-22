@@ -26,7 +26,9 @@ export default {
 	unshiftRange(range, step, lowerBound = 0) {
 		const [min, max] = range
 		const outOfBounds = min - step < 0
-		return outOfBounds ? range : range.map((val) => (val -= step))
+		const rangeSize = max - min
+		const initRange = [0, rangeSize]
+		return outOfBounds ? initRange : range.map((val) => (val -= step))
 	},
 
 	getGroupLines(options) {

@@ -4,13 +4,15 @@ import { ResponsiveLine } from "@nivo/line"
 import theme from "./Theme"
 import { SAMPLE_LINE_DATA, SAMPLE_DATA_LAURA_LES } from "./SampleData"
 
-const LineChart = ({ data }) => {
+const LineChart = ({ options, data }) => {
+	const { xMin, xMax, yMin, yMax } = options
+
 	return (
 		<ResponsiveLine
 			data={data || SAMPLE_LINE_DATA}
 			margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
 			xScale={{ type: "point" }}
-			yScale={{ type: "linear", stacked: false, min: "auto", max: "auto" }}
+			yScale={{ type: "linear", stacked: false, min: yMin, max: yMax }}
 			axisTop={null}
 			axisRight={null}
 			axisBottom={{
