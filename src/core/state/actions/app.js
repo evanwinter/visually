@@ -33,9 +33,21 @@ const appActions = {
 			type: T.TOGGLE_SEARCH,
 		}
 	},
+	setSearchState(searchOpen) {
+		return {
+			type: T.SET_SEARCH_STATE,
+			searchOpen: searchOpen,
+		}
+	},
 	toggleMenu() {
 		return {
 			type: T.TOGGLE_MENU,
+		}
+	},
+	setStep(step) {
+		return {
+			type: T.SET_STEP,
+			step: step,
 		}
 	},
 }

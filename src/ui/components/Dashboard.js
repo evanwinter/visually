@@ -1,11 +1,10 @@
 import React from "react"
-import Search from "./Search"
-import SearchResults from "./SearchResults"
+import Toolbar from "./Toolbar"
 
 const Dashboard = () => {
 	return (
 		<div className="Dashboard">
-			<Search />
+			<Toolbar />
 		</div>
 	)
 }

@@ -9,6 +9,7 @@ const chartActions = {
 		return async (dispatch, getState, api) => {
 			dispatch(this.getChartBegin())
 			const chart = await chartPromiseWorker.postMessage(analysis)
+			console.log(chart)
 			dispatch(this.getChartSuccess(chart))
 			return chart
 		}

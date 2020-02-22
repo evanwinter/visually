@@ -7,7 +7,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "parcel src/index.html",
-		"build": "npm run prebuild ; parcel build src/index.html",
+		"build": "npm run clean && parcel build src/index.html",
 		"format": "prettier --write 'src/**/*.js'",
 		"prebuild": "npm run clean",
 		"clean": "rm -rf dist/ && rm -rf .cache/ && rm -rf .parcel-cache/"

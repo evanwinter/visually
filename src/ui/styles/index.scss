@@ -9,6 +9,14 @@
 @import "./components/SearchForm";
 @import "./components/SearchResults";
 @import "./components/SearchToggle";
+@import "./components/TopMenu";
+@import "./components/Suggestions";
+@import "./components/App";
+@import "./components/Toolbar";
+@import "./components/Welcome";
+@import "./components/Toggles";
+@import "./components/MenuToggle";
+@import "./components/XAxis";
 
 * {
 	box-sizing: border-box;
@@ -29,8 +37,7 @@ body {
 .container {
 	display: block;
 	width: 100%;
-	max-width: 1440px;
-	padding: 6rem 2rem;
+	padding: 2rem;
 }
 
 a {
@@ -55,6 +62,7 @@ button {
 	background: $button-background;
 	color: $button-color;
 	border: $button-border;
+
 	padding: 1rem;
 	font-size: 1rem;
 	display: inline-block;
@@ -95,8 +103,8 @@ input[type="text"] {
 	background: $input-background;
 	border: $input-border;
 	color: $input-color;
-	padding: 1rem;
 	font-size: 1rem;
+	padding: 1em;
 	margin: 1rem 0;
 	transition: color 50ms ease, border 50ms ease, background 50ms ease;
 
@@ -131,125 +139,16 @@ input[type="text"] {
 	}
 }
 
-.Toolbar {
-	height: 30px;
-	transition: height 500ms ease;
-	&[data-open="true"] {
-		height: 300px;
-	}
-
-	button {
-		border: 1px solid $white;
-		margin: 0 0.5rem;
-		padding: 0.25rem 0.5rem;
-	}
-
-	input[type="range"] {
-		background-color: white;
-	}
-}
-
-.slidecontainer {
-	width: 100%; /* Width of the outside container */
-}
-
-/* The slider itself */
-.slider {
-	-webkit-appearance: none; /* Override default CSS styles */
-	appearance: none;
-	width: 100%; /* Full-width */
-	height: 25px; /* Specified height */
-	background: #d3d3d3; /* Grey background */
-	outline: none; /* Remove outline */
-	opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-	-webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
-	transition: opacity 0.2s;
-}
-
-/* Mouse-over effects */
-.slider:hover {
-	opacity: 1; /* Fully shown on mouse-over */
-}
-
-/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider::-webkit-slider-thumb {
-	-webkit-appearance: none; /* Override default look */
-	appearance: none;
-	width: 25px; /* Set a specific slider handle width */
-	height: 25px; /* Slider handle height */
-	background: #4caf50; /* Green background */
-	cursor: pointer; /* Cursor on hover */
-}
-
-.slider::-moz-range-thumb {
-	width: 25px; /* Set a specific slider handle width */
-	height: 25px; /* Slider handle height */
-	background: #4caf50; /* Green background */
-	cursor: pointer; /* Cursor on hover */
-}
-
-.App {
-	width: 100%;
-	min-height: 100vh;
-	top: 0;
-	left: 0;
-}
-
-.Welcome {
-	width: 100%;
-	min-height: 100vh;
-	position: fixed;
-	overflow-x: hidden;
-	z-index: 10;
-	top: 0;
-	left: 0;
-
-	background: $light-black;
-
-	transition: opacity 500ms ease;
-
-	&[data-show="true"] {
-		opacity: 1;
-		pointer-events: all;
-	}
-
-	&[data-show="false"] {
-		opacity: 0;
-		pointer-events: none;
-	}
-}
-
 h1 {
 	font-size: 64px;
 }
 
 p {
 	font-size: 24px;
-}
+	margin: 1.5em 0;
 
-.Suggestions {
-	position: absolute;
-	background: $light-black;
-	border: $white;
-	z-index: 20;
-
-	width: calc(100% - 4rem);
-
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-
-	li {
-		padding: 0.5rem;
-		border: 1px solid $white-50;
-		cursor: pointer;
-
-		&:hover {
-			border: 1px solid $white-75;
-			background: $black;
-		}
+	&.small {
+		font-size: 16px;
 	}
 }
 

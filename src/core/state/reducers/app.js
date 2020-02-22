@@ -1,11 +1,7 @@
 import T from "types"
 
-const INITIAL = "initial"
-const LOADING = "loading"
-const COMPLETED = "completed"
-
 const appInitialState = {
-	step: INITIAL,
+	step: T.STEP_INITIAL,
 	isLoading: false,
 	searchOpen: false,
 	menuOpen: false,
@@ -16,13 +12,13 @@ export default (state = appInitialState, action) => {
 		case T.GET_APP_DATA_BEGIN:
 			return {
 				...state,
-				step: LOADING,
+				step: T.STEP_LOADING,
 				isLoading: true,
 			}
 		case T.GET_APP_DATA_SUCCESS:
 			return {
 				...state,
-				step: COMPLETED,
+				step: T.STEP_COMPLETED,
 				isLoading: false,
 			}
 		case T.GET_APP_DATA_ERROR:
@@ -33,10 +29,20 @@ export default (state = appInitialState, action) => {
 				...state,
 				searchOpen: !state.searchOpen,
 			}
+		case T.SET_SEARCH_STATE:
+			return {
+				...state,
+				searchOpen: action.searchOpen,
+			}
 		case T.TOGGLE_MENU:
 			return {
 				...state,
 				menuOpen: !state.menuOpen,
+			}
+		case T.SET_STEP:
+			return {
+				...state,
+				step: action.step,
 			}
 		default:
 			return state

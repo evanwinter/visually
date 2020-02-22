@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useActions } from "hooks"
-import Dashboard from "./Dashboard"
+import Dashboard from "../Dashboard"
 
 const Menu = () => {
 	const dispatch = useDispatch()
@@ -15,7 +15,7 @@ const Menu = () => {
 	}
 
 	useEffect(() => {
-		if (menuOpen) document.querySelector(".SearchForm input").focus()
+		// if (menuOpen) document.querySelector(".SearchForm input").focus()
 	}, [menuOpen])
 
 	return (

@@ -1,6 +1,6 @@
 import React from "react"
-import MenuToggle from "./MenuToggle"
-import SearchToggle from "./SearchToggle"
+import MenuToggle from "./Menu/MenuToggle"
+import SearchToggle from "./Search/SearchToggle"
 
 const Toggles = () => {
 	return (

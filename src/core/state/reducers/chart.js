@@ -34,7 +34,7 @@ export default (state = chartInitialState, action) => {
 		case T.GET_CHART_BEGIN:
 			return state
 		case T.GET_CHART_SUCCESS:
-			return { ...action.chart }
+			return state
 		case T.GET_CHART_ERROR:
 			return state
 		case T.UPDATE_CHART_PARAMS:

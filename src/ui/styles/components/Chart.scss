@@ -1,6 +1,22 @@
 .Chart {
-	height: calc(100vh - 4rem);
-	> div {
-		height: 100%;
+	&--main {
+		height: 75vh;
+		> div:first-child {
+			height: 100%;
+		}
+	}
+
+	&--bottom-toolbar {
+		display: flex;
+		justify-content: flex-end;
+
+		.button-group {
+			margin-left: 1rem;
+		}
+
+		.button {
+			font-size: 0.75rem;
+			padding: 0.5rem;
+		}
 	}
 }

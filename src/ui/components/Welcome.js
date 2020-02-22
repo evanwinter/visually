@@ -1,13 +1,14 @@
 import React from "react"
 import Search from "./Search"
 import { useSelector } from "react-redux"
+import T from "types"
 
 const Welcome = () => {
 	const { app, analysis } = useSelector((state) => state)
-	const { isLoading } = app
+	const { step } = app
 
 	const hasData = analysis.all.lyrics.length > 0
-	const hasRunOnce = isLoading || hasData
+	const hasRunOnce = step === T.STEP_LOADING || hasData
 
 	return (
 		<div className="Welcome" data-show={!hasRunOnce}>

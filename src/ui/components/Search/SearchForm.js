@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { ArrowRight } from "react-feather"
+import { ArrowRight, X } from "react-feather"
 import { useActions } from "hooks/index"
 import { useDispatch, useSelector } from "react-redux"
 import { useDebounce } from "hooks"
+
+import Suggestions from "./Suggestions"
 
 const SearchForm = () => {
 	// State
@@ -12,7 +14,7 @@ const SearchForm = () => {
 
 	// Actions
 	const dispatch = useDispatch()
-	const { searchActions } = useActions()
+	const { appActions, searchActions } = useActions()
 
 	// Handlers
 	const handleChange = (e) => {
@@ -27,8 +29,8 @@ const SearchForm = () => {
 		}
 	}
 
-	const handleConfirm = (e) => {
-		// const
+	const closeSearch = () => {
+		dispatch(appActions.setSearchState(false))
 	}
 
 	const debouncedQuery = useDebounce(query, 500)
@@ -46,49 +48,17 @@ const SearchForm = () => {
 		<div className="SearchForm" data-search-open={searchOpen}>
 			<form onSubmit={handleSubmit}>
 				<div className="form-wrapper">
-					<label>Look up an artist</label>
 					<div className="input-group">
-						<input onChange={handleChange} type="text" />
+						<input onChange={handleChange} type="text" value={query} />
 						<button className="button">
-							<ArrowRight width={16} height={15} />
+							<ArrowRight />
 						</button>
 					</div>
-					<div onClick={handleConfirm}>
+					<div>
 						<Suggestions results={results} />
 					</div>
 				</div>
 			</form>
-		</div>
-	)
-}
-
-const Suggestions = ({ results }) => {
-	const dispatch = useDispatch()
-	const { appActions } = useActions()
-
-	const artists = results ? Object.values(results) : undefined
-
-	const handleClick = (e) => {
-		const { artistId } = e.currentTarget.dataset
-		const { artist } = results[artistId]
-		dispatch(appActions.startApp(artist))
-	}
-
-	return (
-		<div className="Suggestions">
-			<ul className="suggestions-list">
-				{artists &&
-					artists.map(({ artist }) => {
-						return (
-							<li
-								key={artist.id}
-								data-artist-id={artist.id}
-								onClick={handleClick}>
-								{artist.name}
-							</li>
-						)
-					})}
-			</ul>
 		</div>
 	)
 }

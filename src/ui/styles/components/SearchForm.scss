@@ -3,14 +3,6 @@
 	transition: opacity 500ms ease;
 	overflow-x: hidden;
 
-	// &[data-search-open="false"] {
-	// 	opacity: 0;
-
-	// 	input {
-	// 		transform: translateX(100%);
-	// 	}
-	// }
-
 	label {
 		@include text-style--label;
 
@@ -24,12 +16,15 @@
 
 	input[type="text"] {
 		flex: 1;
+		height: 100px;
 		width: 100%;
 		margin: 0;
 		z-index: 2;
+		font-size: 1.5rem;
 	}
 
 	button {
 		margin: 0;
+		padding: 2rem;
 	}
 }

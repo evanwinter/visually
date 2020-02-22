@@ -1,0 +1,26 @@
+.Toolbar {
+	height: 30px;
+	transition: height 500ms ease;
+	&[data-open="true"] {
+		height: 300px;
+
+		.Toolbar--toggle-icon svg {
+			transform: rotateX(180deg);
+		}
+	}
+
+	button {
+		border: 1px solid $white;
+		margin: 0.5rem 0.25rem;
+		&:first-child {
+			margin-left: 0;
+		}
+		padding: 0.25rem 0.5rem;
+	}
+	&-main {}
+
+	&--toggle-icon {
+		cursor: pointer;
+		// padding-top: 1rem;
+	}
+}

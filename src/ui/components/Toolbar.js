@@ -1,45 +1,60 @@
 import React, { useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import Utils from "core/utils"
+import { ChevronDown } from "react-feather"
+import { useActions } from "hooks"
+import T from "types"
+import { UpdateXRange, ShiftXRange } from "./XAxis"
+import { UpdateYAxis } from "./YAxis"
 
 const Toolbar = () => {
-	const [open, setOpen] = useState(false)
-	const [xValue, setXValue] = useState(20)
-
+	const [open, setOpen] = useState(true)
 	const handleToggle = (e) => {
 		e.preventDefault()
 		setOpen(!open)
 	}
 
-	const handleXChange = (e) => {
-		setXValue(e.currentTarget.value)
-  }
-  
-  const handleSubmit = (e) => {
-    console.log(xValue)
-  }
+	const dispatch = useDispatch()
+	const { chart } = useSelector((state) => state)
+	const { chartActions } = useActions()
+
+	const handleGroupUnitsChange = (e) => {
+		dispatch(chartActions.updateParams({ groupUnits: e.target.value }))
+	}
+
+	const handleYUnitsChange = (e) => {
+		dispatch(chartActions.updateParams({ yUnits: e.target.value }))
+	}
 
 	return (
 		<div className="Toolbar" data-open={open}>
-			Toolbar
-			<button onClick={handleToggle}>v</button>
+			<p>
+				Toolbar{" "}
+				<span className="Toolbar--toggle-icon" onClick={handleToggle}>
+					<ChevronDown width={20} height={20} />
+				</span>
+			</p>
 			{open && (
 				<div className="Toolbar-main">
-					
-          <div className="input-group">
-						<label>Number of words</label>
-						<div className="slidecontainer">
-							<input
-								type="range"
-								min="1"
-								max="100"
-								value={xValue}
-								className="slider"
-								id="myRange"
-								onChange={handleXChange}
-							/>
+					<section>
+						<div>
+							<label>
+								A line represents...
+								<select
+									value={chart.parameters.groupUnits}
+									onChange={handleGroupUnitsChange}>
+									<option value={T.BY_YEAR}>a year</option>
+									<option value={T.BY_ALBUM}>an album</option>
+								</select>
+							</label>
 						</div>
-					</div>
-
-          <button onClick={handleSubmit}>Submit</button>
+						<div>
+							<label>
+								Show word frequencies by...
+								<UpdateYAxis />
+							</label>
+						</div>
+					</section>
 				</div>
 			)}
 		</div>

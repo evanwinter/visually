@@ -1,0 +1,30 @@
+.Welcome {
+	width: 100%;
+	position: fixed;
+	height: calc(100vh - 4rem);
+	overflow-x: hidden;
+	z-index: 30;
+	top: 0;
+	left: 0;
+	background: $black;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	h1:first-child {
+		margin-top: 0;
+	}
+
+	transition: opacity 500ms ease;
+
+	&[data-show="true"] {
+		opacity: 1;
+		pointer-events: all;
+	}
+
+	&[data-show="false"] {
+		opacity: 0;
+		pointer-events: none;
+	}
+}
