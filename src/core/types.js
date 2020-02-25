@@ -6,9 +6,12 @@ const FREQ_DISCRETE = "frequencyDiscrete"
 const FREQ_PERCENT_GROUP = "frequencyPercentGroup"
 const FREQ_PERCENT_GROUP_WORDS = "frequencyPercentGroupWords"
 
+const SORT_BY_TOP = "top"
+const SORT_BY_BOTTOM = "bottom"
+
 // Default chart params
 const DEFAULT_NUM_WORDS = 10
-const DEFAULT_SORT_BY = "top"
+const DEFAULT_SORT_BY = SORT_BY_TOP
 const DEFAULT_GROUP_UNITS = BY_YEAR
 const DEFAULT_X_UNITS = ""
 const DEFAULT_Y_UNITS = FREQ_DISCRETE
@@ -125,6 +128,9 @@ const Types = {
 	TOGGLE_BOTTOM_DRAWER,
 
 	USE_SAMPLE_DATA,
+
+	SORT_BY_TOP,
+	SORT_BY_BOTTOM,
 }
 
 export default Types

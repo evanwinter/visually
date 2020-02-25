@@ -5,7 +5,7 @@
 		&:first-child {
 			margin-left: 0;
 		}
-		padding: 0.25rem 0.5rem;
+		padding: 0.5rem;
 	}
 
 	&--main {
@@ -35,5 +35,13 @@
 
 	&--dropdown {
 		margin: 1rem 0;
+		select {
+			margin-left: 0.5rem;
+		}
+	}
+
+	.CurrentRange {
+		color: $white-90;
+		margin: 0.5rem 0;
 	}
 }

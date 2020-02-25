@@ -43,7 +43,7 @@ export const ShiftXRange = () => {
 	const showNextWords = () => {
 		const { xRange } = chart.parameters
 		const upperBound = chart.data.all.lyrics.length
-		const stepSize = (xRange[1] - xRange[0]) / 2
+		const stepSize = Math.round((xRange[1] - xRange[0]) / 2)
 		const newXRange = Utils.shiftRange(xRange, stepSize, upperBound)
 		dispatch(chartActions.updateParams({ xRange: newXRange }))
 	}
@@ -63,6 +63,22 @@ export const ShiftXRange = () => {
 			<button className="button" onClick={showNextWords}>
 				Next
 			</button>
+		</div>
+	)
+}
+
+export const CurrentRange = () => {
+	const { xRange } = useSelector((state) => state.chart.parameters)
+	const { frequencies } = useSelector((state) => state.analysis.all)
+	const uniqueWords = Object.keys(frequencies).length
+
+	const [min, max] = xRange
+
+	return (
+		<div className="CurrentRange">
+			<span>
+				Viewing {min} - {max} of {uniqueWords} words
+			</span>
 		</div>
 	)
 }

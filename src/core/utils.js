@@ -33,12 +33,15 @@ export default {
 
 	getAllTime(options) {
 		const { data, parameters } = options
-		const { yUnits, xRange, groupUnits } = parameters
+		const { yUnits, xRange, groupUnits, sortBy } = parameters
 
 		// All lyric frequencies
 		const allFrequencies = data.all.frequencies
 		// Sorted by frequency
-		const sortedFrequencies = this.getSortedFrequencies(allFrequencies)
+		const sortedFrequencies = this.getSortedFrequencies(
+			allFrequencies,
+			sortBy === T.SORT_BY_TOP,
+		)
 
 		// Get number of items to show on x-axis (words)
 		const [xMin, xMax] = xRange
@@ -63,6 +66,8 @@ export default {
 			const sumFrequenciesInGroupVisible = Object.values(
 				targetFrequencies,
 			).reduce((acc, curr) => (acc += curr))
+
+			console.log(allFrequencies, targetFrequencies)
 
 			let yVal = 0
 
@@ -99,7 +104,7 @@ export default {
 
 	getGroupLines(options) {
 		const { data, parameters } = options
-		const { yUnits, xRange, groupUnits } = parameters
+		const { yUnits, xRange, groupUnits, sortBy } = parameters
 
 		if (groupUnits === T.ALL_TIME) {
 			const results = this.getAllTime(options)
@@ -108,7 +113,10 @@ export default {
 
 		const allFrequencies = data.all.frequencies
 		const groupedFrequencies = data[groupUnits].frequencies
-		const sortedFrequencies = this.getSortedFrequencies(allFrequencies)
+		const sortedFrequencies = this.getSortedFrequencies(
+			allFrequencies,
+			sortBy === T.SORT_BY_TOP,
+		)
 
 		const groupedEntries = Object.entries(groupedFrequencies)
 

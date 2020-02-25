@@ -4,8 +4,8 @@ import Utils from "core/utils"
 import { Settings as SettingsIcon } from "react-feather"
 import { useActions } from "hooks"
 import T from "types"
-import { UpdateXRange, ShiftXRange } from "./XAxis"
-import { UpdateYAxis } from "./YAxis"
+import { UpdateXRange, ShiftXRange, CurrentRange } from "./XAxis"
+import { UpdateYAxis, UpdateSortBy } from "./YAxis"
 import Modal from "./Modal"
 
 const Toolbar = () => {
@@ -37,8 +37,10 @@ const Toolbar = () => {
 			<Modal modalID="toolbar">
 				<div className="Toolbar--main">
 					<section>
+						
+						<h3>General</h3>
+
 						<div className="Toolbar--dropdown">
-							<h3>General</h3>
 							<label>
 								A line represents...
 								<select
@@ -51,16 +53,30 @@ const Toolbar = () => {
 							</label>
 						</div>
 						<hr />
+
+						<h3>Y Axis</h3>
+
 						<div className="Toolbar--dropdown">
-							<h3>Y Axis</h3>
 							<label>
 								Show word frequencies by...
 								<UpdateYAxis />
 							</label>
 						</div>
+
+						<div className="Toolbar--dropdown">
+							<label>
+								Sort by...
+								<UpdateSortBy />
+							</label>
+						</div>
+
 						<hr />
+
+						<h3>X Axis</h3>
+
+						<CurrentRange />
+
 						<div>
-							<h3>X Axis</h3>
 							<ShiftXRange />
 							<UpdateXRange />
 						</div>

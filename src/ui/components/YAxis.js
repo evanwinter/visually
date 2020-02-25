@@ -27,3 +27,20 @@ export const UpdateYAxis = () => {
 		</select>
 	)
 }
+
+export const UpdateSortBy = () => {
+	const dispatch = useDispatch()
+	const { chart } = useSelector((state) => state)
+	const { chartActions } = useActions()
+
+	const handleSortByChange = (e) => {
+		dispatch(chartActions.updateParams({ sortBy: e.target.value }))
+	}
+
+	return (
+		<select value={chart.parameters.sortBy} onChange={handleSortByChange}>
+			<option value={T.SORT_BY_TOP}>Most frequent</option>
+			<option value={T.SORT_BY_BOTTOM}>Least frequent</option>
+		</select>
+	)
+}

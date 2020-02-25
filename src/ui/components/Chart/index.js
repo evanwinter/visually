@@ -5,7 +5,7 @@ import T from "types"
 import { useActions } from "hooks"
 import LineChart from "./LineChart"
 import Toolbar from "../Toolbar"
-import {UpdateXRange, ShiftXRange} from "../XAxis"
+import { UpdateXRange, ShiftXRange, CurrentRange } from "../XAxis"
 
 const Chart = () => {
 	// Initialize state management
@@ -45,6 +45,7 @@ const Chart = () => {
 			</div>
 			<div className="Chart--bottom-toolbar">
 				<ShiftXRange />
+				<CurrentRange />
 				<UpdateXRange />
 			</div>
 		</div>
