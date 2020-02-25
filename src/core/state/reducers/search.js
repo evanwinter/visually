@@ -36,6 +36,11 @@ export default (state = searchInitialState, action) => {
 				...state,
 				showSuggestions: false,
 			}
+		case T.CLEAR_SEARCH_RESULTS:
+			return {
+				...state,
+				results: [],
+			}
 		default:
 			return state
 	}

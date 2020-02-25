@@ -4,19 +4,20 @@
 
 @import "./components/Chart";
 @import "./components/Dashboard";
-@import "./components/Menu";
+@import "./components/SideDrawer";
+@import "./components/SideDrawerToggle";
 @import "./components/Search";
 @import "./components/SearchForm";
 @import "./components/SearchResults";
 @import "./components/SearchToggle";
-@import "./components/TopMenu";
-@import "./components/Suggestions";
+@import "./components/BottomDrawer";
 @import "./components/App";
 @import "./components/Toolbar";
 @import "./components/Welcome";
 @import "./components/Toggles";
-@import "./components/MenuToggle";
 @import "./components/XAxis";
+@import "./components/Modal";
+@import "./components/ArtistSuggestions";
 
 * {
 	box-sizing: border-box;
@@ -30,13 +31,15 @@ body {
 	min-height: 100vh;
 	overflow-x: hidden;
 	background: $black;
-	color: $white;
+	color: $white-90;
 	font-family: $font-family--primary;
 }
 
 .container {
 	display: block;
 	width: 100%;
+	max-width: 1440px;
+	margin: 0 auto;
 	padding: 2rem;
 }
 
@@ -68,6 +71,15 @@ button {
 	display: inline-block;
 	margin: 1rem 0;
 	transition: background 50ms ease, color 50ms ease, border 50ms ease;
+
+	&.subtle {
+		color: $white-75;
+		border: 1px solid $white-50;
+
+		&:hover {
+			border: 1px solid $white-75;
+		}
+	}
 
 	&:hover,
 	&:focus {
@@ -139,7 +151,7 @@ input[type="text"] {
 	}
 }
 
-h1 {
+.large-heading {
 	font-size: 64px;
 }
 
@@ -164,4 +176,17 @@ p {
 .fade-enter.fade-enter-active {
 	opacity: 1;
 	transition: opacity 250ms ease-in;
+}
+
+hr {
+	height: 1px;
+	border: none;
+	background: $white-50;
+	margin: 2rem 0;
+}
+
+.Profile {
+	> *:first-child {
+		margin-top: 0;
+	}
 }

@@ -1,14 +1,4 @@
 .Toolbar {
-	height: 30px;
-	transition: height 500ms ease;
-	&[data-open="true"] {
-		height: 300px;
-
-		.Toolbar--toggle-icon svg {
-			transform: rotateX(180deg);
-		}
-	}
-
 	button {
 		border: 1px solid $white;
 		margin: 0.5rem 0.25rem;
@@ -17,10 +7,33 @@
 		}
 		padding: 0.25rem 0.5rem;
 	}
-	&-main {}
 
-	&--toggle-icon {
+	&--main {
+		z-index: 40;
+
+		*:first-child {
+			margin-top: 0;
+		}
+	}
+
+	&--toggle {
+		display: inline-block;
 		cursor: pointer;
-		// padding-top: 1rem;
+
+		border: 1px solid $white-25;
+		padding: 0.5rem;
+
+		&:hover {
+			border-color: $white-50;
+		}
+	}
+
+	&--toggle-icon svg {
+		padding-top: 0.25rem;
+		margin-left: 0.25rem;
+	}
+
+	&--dropdown {
+		margin: 1rem 0;
 	}
 }

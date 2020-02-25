@@ -43,7 +43,7 @@ export const ShiftXRange = () => {
 	const showNextWords = () => {
 		const { xRange } = chart.parameters
 		const upperBound = chart.data.all.lyrics.length
-		const stepSize = xRange[1] - xRange[0]
+		const stepSize = (xRange[1] - xRange[0]) / 2
 		const newXRange = Utils.shiftRange(xRange, stepSize, upperBound)
 		dispatch(chartActions.updateParams({ xRange: newXRange }))
 	}

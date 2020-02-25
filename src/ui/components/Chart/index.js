@@ -2,11 +2,10 @@ import React, { useState, useEffect, useReducer } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import Utils from "core/utils"
 import T from "types"
-import { useActions, useIndexedDB } from "hooks"
+import { useActions } from "hooks"
 import LineChart from "./LineChart"
-import { ShiftXRange, UpdateXRange } from "../XAxis"
-import { UpdateYAxis } from "../YAxis"
-import { get, set } from "idb-keyval"
+import Toolbar from "../Toolbar"
+import {UpdateXRange, ShiftXRange} from "../XAxis"
 
 const Chart = () => {
 	// Initialize state management
@@ -36,18 +35,15 @@ const Chart = () => {
 		dispatch(chartActions.updateResults(results))
 	}, [chart.parameters, chart.data, chart.filters])
 
-	if (step !== T.STEP_COMPLETED) {
-		return ""
-	}
-
 	return (
 		<div className="Chart">
-			<div className="Chart--top-toolbar"></div>
+			<div className="Chart--top-toolbar">
+				<Toolbar />
+			</div>
 			<div className="Chart--main">
 				<LineChart options={chart.options} data={chart.results} />
 			</div>
 			<div className="Chart--bottom-toolbar">
-				<h3>X Axis</h3>
 				<ShiftXRange />
 				<UpdateXRange />
 			</div>

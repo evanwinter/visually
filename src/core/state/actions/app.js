@@ -7,6 +7,8 @@ import discographyActions from "./discography"
 import analysisActions from "./analysis"
 import chartActions from "./chart"
 
+import sampleData from "core/data/sample-data.json"
+
 const appActions = {
 	startApp(artist) {
 		return async (dispatch, getState, api) => {
@@ -55,6 +57,22 @@ const appActions = {
 			dispatch(this.getAppDataSuccess())
 		}
 	},
+	useSampleData() {
+		return async (dispatch, getState, api) => {
+			const { artist, discography, analysis, chart } = sampleData
+
+			dispatch(this.getAppDataBegin())
+
+			dispatch(artistActions.setArtist(artist))
+			dispatch(discographyActions.getDiscographySuccess(discography))
+			dispatch(analysisActions.getAnalysisSuccess(analysis))
+			dispatch(chartActions.getChartSuccess(chart))
+
+			dispatch(this.getAppDataSuccess())
+
+			return true
+		}
+	},
 	getAppDataBegin() {
 		return {
 			type: T.GET_APP_DATA_BEGIN,
@@ -70,15 +88,56 @@ const appActions = {
 			type: T.TOGGLE_SEARCH,
 		}
 	},
-	setSearchState(searchOpen) {
-		return {
-			type: T.SET_SEARCH_STATE,
-			searchOpen: searchOpen,
-		}
-	},
 	toggleMenu() {
 		return {
 			type: T.TOGGLE_MENU,
+		}
+	},
+	openModal(modalID) {
+		return {
+			type: T.OPEN_MODAL,
+			modalID: modalID,
+		}
+	},
+	closeModal() {
+		return {
+			type: T.CLOSE_MODAL,
+		}
+	},
+	toggleModal(modalID) {
+		return {
+			type: T.TOGGLE_MODAL,
+			modalID: modalID,
+		}
+	},
+	openBottomDrawer() {
+		return {
+			type: T.OPEN_BOTTOM_DRAWER,
+		}
+	},
+	closeBottomDrawer() {
+		return {
+			type: T.CLOSE_BOTTOM_DRAWER,
+		}
+	},
+	toggleBottomDrawer() {
+		return {
+			type: T.TOGGLE_BOTTOM_DRAWER,
+		}
+	},
+	openSideDrawer() {
+		return {
+			type: T.OPEN_SIDE_DRAWER,
+		}
+	},
+	closeSideDrawer() {
+		return {
+			type: T.CLOSE_SIDE_DRAWER,
+		}
+	},
+	toggleSideDrawer() {
+		return {
+			type: T.TOGGLE_SIDE_DRAWER,
 		}
 	},
 	setStep(step) {

@@ -1,7 +1,7 @@
 import Utils from "./utils"
 
 const DEFAULT_OPTIONS = {
-	maxNumSongs: 500,
+	maxNumSongs: 200,
 	perPage: 50,
 	sorting: "popularity",
 	filter: true,
@@ -40,13 +40,21 @@ class API {
 		)
 	}
 
-	async fetchSearchResults(query) {
+	async _fetchSearchResults(query) {
 		const url = `${this.apiURL}/search?q=${query}`
 		const request = this.requestify(url)
 
 		// Fetch search results (returns a list of songs)
-		const response = await fetch(request)
-		if (!response.ok) throw new Error("Error fetching artist")
+		try {
+			const response = await fetch(request)
+			if (response.ok) return response
+		} catch (e) {
+			console.log(e)
+		}
+	}
+
+	async fetchSearchResults(query) {
+		const response = await this._fetchSearchResults(query)
 		const json = await response.json()
 		const songs = json.response.hits
 

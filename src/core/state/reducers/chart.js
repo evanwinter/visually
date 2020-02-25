@@ -32,6 +32,8 @@ const chartInitialState = {
 		xMax: "auto",
 		yMin: "auto",
 		yMax: "auto",
+		xAxisLegend: "words",
+		yAxisLegend: "usage"
 	},
 }
 

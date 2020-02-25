@@ -1,5 +1,6 @@
 .Welcome {
 	width: 100%;
+	// max-width: 1200px;
 	position: fixed;
 	height: calc(100vh - 4rem);
 	overflow-x: hidden;
@@ -12,8 +13,20 @@
 	justify-content: center;
 	align-items: center;
 
-	h1:first-child {
+	.large-heading {
+		margin-bottom: 0.5em;
+	}
+	
+	p {
+		margin: 1.5rem 0;
+	}
+
+	.container h2:first-child {
 		margin-top: 0;
+	}
+
+	.Search {
+		margin-top: 3rem;
 	}
 
 	transition: opacity 500ms ease;
@@ -26,5 +39,9 @@
 	&[data-show="false"] {
 		opacity: 0;
 		pointer-events: none;
+	}
+
+	.ArtistSuggestions {
+		position: absolute;
 	}
 }

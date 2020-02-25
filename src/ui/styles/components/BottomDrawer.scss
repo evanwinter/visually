@@ -1,0 +1,14 @@
+.BottomDrawer {
+	background: $black;
+	height: 0;
+	overflow-y: hidden;
+
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+
+	transition: height 250ms ease;
+	&[data-show="true"] {
+		height: 100px;
+	}
+}

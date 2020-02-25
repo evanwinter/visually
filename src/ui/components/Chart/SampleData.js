@@ -88,7 +88,7 @@ const SAMPLE_DATA_LAURA_LES = [
 
 export const SAMPLE_LINE_DATA = [
   {
-    id: "japan",
+    id: "really long key name lol",
     color: "hsl(247, 70%, 50%)",
     data: [
       {

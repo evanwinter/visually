@@ -6,13 +6,11 @@ const searchActions = {
 	handleQuery(query) {
 		return async (dispatch, getState, api) => {
 			dispatch(this.handleQueryBegin())
-			dispatch(this.hideSuggestions())
+			dispatch(this.showSuggestions())
 
 			// Fetch search results
 			const results = await api.fetchSearchResults(query)
 			dispatch(this.handleQuerySuccess(results))
-
-			dispatch(this.showSuggestions())
 			
 			// // Assert artist if there's an exact match or if there's only one result
 			// const artist = utils.determineArtist(results, query)
@@ -34,6 +32,11 @@ const searchActions = {
 		return {
 			type: "HANDLE_QUERY_SUCCESS",
 			results: results,
+		}
+	},
+	clearSearchResults() {
+		return {
+			type: "CLEAR_SEARCH_RESULTS",
 		}
 	},
 	showSuggestions() {

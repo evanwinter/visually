@@ -7,9 +7,9 @@
 	}
 
 	&--bottom-toolbar {
-		.button-group {
-			margin-left: 1rem;
-		}
+
+		display: flex;
+		justify-content: space-between;
 
 		.button {
 			font-size: 0.75rem;

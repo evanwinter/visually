@@ -1,9 +1,15 @@
 $white: #fefefe;
 $black: #111;
 
+$white-90: rgba($white, 0.9);
 $white-75: rgba($white, 0.75);
 $white-50: rgba($white, 0.5);
 $white-25: rgba($white, 0.25);
+
+$black-90: rgba($black, 0.9);
+$black-75: rgba($black, 0.75);
+$black-50: rgba($black, 0.5);
+$black-25: rgba($black, 0.25);
 
 $light-black: lighten($black, 5%);
 

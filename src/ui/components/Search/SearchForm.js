@@ -4,12 +4,11 @@ import { useActions } from "hooks/index"
 import { useDispatch, useSelector } from "react-redux"
 import { useDebounce } from "hooks"
 
-import Suggestions from "./Suggestions"
+import ListSuggestions from "./ListSuggestions"
 
 const SearchForm = () => {
 	// State
 	const [query, setQuery] = useState("")
-	const { searchOpen } = useSelector((state) => state.app)
 	const { showSuggestions, results } = useSelector((state) => state.search)
 
 	// Actions
@@ -29,29 +28,28 @@ const SearchForm = () => {
 		}
 	}
 
-	const closeSearch = () => {
-		dispatch(appActions.setSearchState(false))
-	}
-
 	const debouncedQuery = useDebounce(query, 500)
 
 	useEffect(() => {
-		if (debouncedQuery.length === 0) {
-			dispatch(searchActions.hideSuggestions())
-		}
-
 		if (debouncedQuery) {
-			if (debouncedQuery.length > 3) {
+			if (debouncedQuery.length > 2) {
 				dispatch(searchActions.handleQuery(debouncedQuery.trim()))
 			}
 		}
 	}, [debouncedQuery])
 
+	useEffect(() => {
+		if (query === "") {
+			dispatch(searchActions.clearSearchResults())
+		}
+	}, [query])
+
 	// Output
 	return (
-		<div className="SearchForm" data-search-open={searchOpen}>
+		<div className="SearchForm">
 			<form onSubmit={handleSubmit}>
 				<div className="form-wrapper">
+					<label>Enter an artist name here</label>
 					<div className="input-group">
 						<input onChange={handleChange} type="text" value={query} />
 						<button className="button">
@@ -59,7 +57,7 @@ const SearchForm = () => {
 						</button>
 					</div>
 					<div>
-						<Suggestions results={results} />
+						<ListSuggestions results={results} />
 					</div>
 				</div>
 			</form>

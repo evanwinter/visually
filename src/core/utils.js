@@ -31,9 +31,80 @@ export default {
 		return outOfBounds ? initRange : range.map((val) => (val -= step))
 	},
 
+	getAllTime(options) {
+		const { data, parameters } = options
+		const { yUnits, xRange, groupUnits } = parameters
+
+		// All lyric frequencies
+		const allFrequencies = data.all.frequencies
+		// Sorted by frequency
+		const sortedFrequencies = this.getSortedFrequencies(allFrequencies)
+
+		// Get number of items to show on x-axis (words)
+		const [xMin, xMax] = xRange
+
+		// Get frequencies of only the words actually being displayed
+		const targetWords = sortedFrequencies
+			.slice(xMin, xMax)
+			.map((entry) => entry[0])
+		const targetFrequencies = targetWords.reduce((acc, word) => {
+			acc[word] = allFrequencies[word] || 0
+			return acc
+		}, {})
+
+		// For each word, get its frequency
+		const linePoints = targetWords.map((word) => {
+			const wordFrequencyInGroup = targetFrequencies[word] || 0
+
+			const sumFrequenciesInGroup = Object.values(allFrequencies).reduce(
+				(acc, curr) => (acc += curr),
+			)
+
+			const sumFrequenciesInGroupVisible = Object.values(
+				targetFrequencies,
+			).reduce((acc, curr) => (acc += curr))
+
+			let yVal = 0
+
+			switch (yUnits) {
+				case T.FREQ_PERCENT_GROUP:
+					yVal = this.getPercent(wordFrequencyInGroup, sumFrequenciesInGroup)
+					break
+				case T.FREQ_PERCENT_GROUP_WORDS:
+					yVal = this.getPercent(
+						wordFrequencyInGroup,
+						sumFrequenciesInGroupVisible,
+					)
+					break
+				case T.FREQ_DISCRETE:
+					yVal = wordFrequencyInGroup
+				default:
+					yVal = wordFrequencyInGroup
+			}
+
+			return { x: word, y: yVal }
+		})
+
+		const artistName =
+			Object.values(data.all.songs)[0].primary_artist.name || "This artist"
+
+		// init line object
+		const lineDataObject = {
+			id: artistName,
+			data: linePoints,
+		}
+
+		return [lineDataObject]
+	},
+
 	getGroupLines(options) {
 		const { data, parameters } = options
 		const { yUnits, xRange, groupUnits } = parameters
+
+		if (groupUnits === T.ALL_TIME) {
+			const results = this.getAllTime(options)
+			return results
+		}
 
 		const allFrequencies = data.all.frequencies
 		const groupedFrequencies = data[groupUnits].frequencies
@@ -177,7 +248,7 @@ export default {
 		const releaseDate = {
 			str: "",
 			epoch: -1,
-			year: 9999,
+			year: "Unknown",
 		}
 
 		// Get labels from table of statistics
@@ -198,7 +269,7 @@ export default {
 		releaseDate.str =
 			releaseDateLabel.querySelector(".metadata_unit-info").innerText || false
 		releaseDate.epoch = Date.parse(releaseDate.str) || -1
-		releaseDate.year = this.epochToYear(releaseDate.epoch) || 9999
+		releaseDate.year = this.epochToYear(releaseDate.epoch) || "Unknown"
 		return releaseDate
 	},
 
