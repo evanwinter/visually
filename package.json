@@ -3,14 +3,11 @@
 	"version": "1.0.0",
 	"description": "Song lyric analysis and data visualization tool",
 	"repository": "https://github.com/evanwinter/visually",
-	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "parcel src/index.html",
-		"build": "npm run clean && parcel build src/index.html",
-		"format": "prettier --write 'src/**/*.js'",
-		"prebuild": "npm run clean",
-		"clean": "rm -rf dist/ && rm -rf .parcel-cache/"
+		"start": "parcel src/index.js",
+		"build": "parcel build src/index.html",
+		"format": "prettier --write 'src/**/*.js'"
 	},
 	"author": "Evan Winter",
 	"license": "MIT",
